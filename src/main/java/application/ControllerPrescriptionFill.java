@@ -4,18 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import application.model.*;
-import application.service.*;
 import view.*;
 
 @Controller
@@ -47,6 +43,9 @@ public class ControllerPrescriptionFill {
 	public String processFillForm(PrescriptionView p, Model model) {
 		// Set a variable to be updated by any refills
 		int refillCount = 0;
+		ArrayList<Pharmacy.DrugCost> drugCosts = new ArrayList<>();
+		ArrayList<Prescription.FillRequest> fillRequests = new ArrayList<>();
+		Prescription.FillRequest newFillRequest = new Prescription.FillRequest();
 
 		// validate pharmacy name and address, get pharmacy id and phone
 		Pharmacy ph = pharmacyRepository.findByNameAndAddress(p.getPharmacyName(), p.getPharmacyAddress());
@@ -56,6 +55,8 @@ public class ControllerPrescriptionFill {
 			p.setPharmacyName(ph.getName());
 			p.setPharmacyAddress(ph.getAddress());
 			p.setPharmacyPhone(ph.getPhone());
+			// List prices of drugs will be used later to validate inventory and populate the form
+			drugCosts = ph.getDrugCosts();
 			} else {
 			// Pharmacy not found, notify the user
 			model.addAttribute("message", "Pharmacy not found, please confirm pharmacy name and address.");
@@ -86,8 +87,8 @@ public class ControllerPrescriptionFill {
 			p.setDoctorId(prescription.getDoctorId());
 			p.setQuantity(prescription.getQuantity());
 			p.setDrugName(prescription.getDrugName());
-			// Create an array to traverse any existing fill requests
-			ArrayList<Prescription.FillRequest> fillRequests = prescription.getFills();
+			// fill in our array to traverse any existing fill requests
+			fillRequests = prescription.getFills();
 			// We will assume that the size of the array is sufficient to count prescription fill occurrences
 			refillCount = fillRequests.size();
 			p.setRefillsRemaining(prescription.getRefills() - refillCount);
@@ -107,6 +108,7 @@ public class ControllerPrescriptionFill {
 			model.addAttribute("prescription", p);
 			return "prescription_fill";
 		}
+
 		/*
 		 * get doctor information 
 		 */
@@ -124,9 +126,34 @@ public class ControllerPrescriptionFill {
 		/*
 		 * calculate cost of prescription
 		 */
+		if (!drugCosts.isEmpty()) {
+			// Traverse the array of drugs that the pharmacy offers
+            for (Pharmacy.DrugCost drugCost : drugCosts) {
+                // if the name matches our request, update the price
+                if (drugCost.getDrugName().equals(p.getDrugName())) {
+                    // note that the cost is stored as double for the pharmacy but string for the filled prescription
+                    p.setCost(Double.toString(drugCost.getCost()));
+                    // assign a date for filling the prescription
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                    Date fillDate = new Date();
+                    p.setDateFilled(dateFormat.format(fillDate));
+                    // also add all this to our fill array for write back to the document
+                    newFillRequest.setPharmacyID(p.getPharmacyID());
+                    newFillRequest.setDateFilled(fillDate.toString());        // writing a full timestamp to MongoDB, but displaying yyyy-mm-dd in the form
+                    newFillRequest.setCost(p.getCost());
+                }
+            }
+		} else {
+			model.addAttribute("message", p.getPharmacyName() + " does not carry " + p.getDrugName() + ". Please select another pharmacy.");
+			model.addAttribute("prescription", p);
+			return "prescription_fill";
+		}
 
-		
 		// save updated prescription
+		p.setRefillsRemaining(p.getRefillsRemaining()-1);	// decrement the refill counter
+		fillRequests.add(newFillRequest);					// add our new fill to the fill list
+		prescription.setFills(fillRequests);				// add our new fill list to the prescription object
+		prescriptionRepository.save(prescription);			// write back to MongoDB
 
 
 		// show the updated prescription with the most recent fill information

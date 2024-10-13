@@ -55,7 +55,10 @@
 			</tr>
 			<tr>
 				<td>Refills remaining:</td>
-				<td><span th:text="*{refills}"></span></td>
+				<!--J.Norvell 2024-10-12 - Original form used refills instead of refillsRemaining -->
+				<!--This conflicts with both the label above and the overall design intent. Corrected. -->
+				<!--<td><span th:text="*{refills}"></span></td>-->
+				<td><span th:text="*{refillsRemaining}"></span></td>
 			</tr>
 			<tr>
 				<td></td>

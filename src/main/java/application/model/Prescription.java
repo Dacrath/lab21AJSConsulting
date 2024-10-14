@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
  */
 
 public class Prescription {
-	
+
 	public static class FillRequest {
 		
 		private int pharmacyID;    

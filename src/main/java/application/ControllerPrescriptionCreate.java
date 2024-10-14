@@ -9,6 +9,10 @@ import application.model.*;
 import application.service.*;
 import view.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Controller
 public class ControllerPrescriptionCreate {
 
@@ -70,6 +74,10 @@ public class ControllerPrescriptionCreate {
         prescriptionModel.setDrugName(p.getDrugName());
         prescriptionModel.setQuantity(p.getQuantity());
         prescriptionModel.setRefills(p.getRefills());
+        // dates are stored as strings throughout this project
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date rxDate = new Date();
+        prescriptionModel.setDateCreated(dateFormat.format(rxDate));
 
 
 

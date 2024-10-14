@@ -134,12 +134,12 @@ public class ControllerPrescriptionFill {
                     // note that the cost is stored as double for the pharmacy but string for the filled prescription
                     p.setCost(Double.toString(drugCost.getCost()));
                     // assign a date for filling the prescription
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date fillDate = new Date();
                     p.setDateFilled(dateFormat.format(fillDate));
                     // also add all this to our fill array for write back to the document
                     newFillRequest.setPharmacyID(p.getPharmacyID());
-                    newFillRequest.setDateFilled(fillDate.toString());        // writing a full timestamp to MongoDB, but displaying yyyy-mm-dd in the form
+                    newFillRequest.setDateFilled(dateFormat.format(fillDate));   // writing a text string in yyyy-mm-dd form
                     newFillRequest.setCost(p.getCost());
                 }
             }

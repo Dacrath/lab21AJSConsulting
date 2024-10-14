@@ -36,11 +36,11 @@ db.pharmacy.insertMany([
 // This is commented out as only Pharmacy and Drug are expected on final submission
 //db.patient.drop();
 //db.patient.insertMany([
-//{ _id: 1, ssn: "592096944", firstName: "Calvin", lastName: "Yost", birthdate: new Date("1991-04-21"), street: "933 Cypress Ave.", city: "Columbus", state: "OH", zipcode: "60491", primaryName: "Welsh"},
-//{ _id: 2, ssn: "958793855", firstName: "Bill", lastName: "Wiliams", birthdate: new Date("1977-08-02"), street: "693 Banglo St.", city: "Ringly", state: "KS", zipcode: "70295", primaryName: "Welsh"},
-//{ _id: 3, ssn: "939387890", firstName: "Susan", lastName: "Thangle", birthdate: new Date("1967-06-11"), street: "4980 Yellow River", city: "Concrelde", state: "ID", zipcode: "89381", primaryName: "Arnold"},
-//{ _id: 4, ssn: "386765283", firstName: "Vincent", lastName: "Green", birthdate: new Date("1983-07-07"), street: "693 Ivory Rd.", city: "Glasshouse", state: "OR", zipcode: "92111", primaryName: "Urgua"},
-//{ _id: 5, ssn: "278619121", firstName: "Will", lastName: "Wonka", birthdate: new Date("1961-01-01"), street: "1 Chocolate Factory", city: "London", state: "AZ", zipcode: "43123", primaryName: "Smithe"}
+//{ _id: 1, ssn: "592096944", firstName: "Calvin", lastName: "Yost", birthdate: "1991-04-21", street: "933 Cypress Ave.", city: "Columbus", state: "OH", zipcode: "60491", primaryName: "Welsh"},
+//{ _id: 2, ssn: "958793855", firstName: "Bill", lastName: "Wiliams", birthdate: "1977-08-02", street: "693 Banglo St.", city: "Ringly", state: "KS", zipcode: "70295", primaryName: "Welsh"},
+//{ _id: 3, ssn: "939387890", firstName: "Susan", lastName: "Thangle", birthdate: "1967-06-11", street: "4980 Yellow River", city: "Concrelde", state: "ID", zipcode: "89381", primaryName: "Arnold"},
+//{ _id: 4, ssn: "386765283", firstName: "Vincent", lastName: "Green", birthdate: "1983-07-07", street: "693 Ivory Rd.", city: "Glasshouse", state: "OR", zipcode: "92111", primaryName: "Urgua"},
+//{ _id: 5, ssn: "278619121", firstName: "Will", lastName: "Wonka", birthdate: "1961-01-01", street: "1 Chocolate Factory", city: "London", state: "AZ", zipcode: "43123", primaryName: "Smithe"}
 //]);
 
 
@@ -49,13 +49,13 @@ db.pharmacy.insertMany([
 // This is commented out as only Pharmacy and Drug are expected on final submission
 //db.prescription.drop();
 //db.prescription.insertMany([
-//{ _id: 1, doctorId: 1, patientId: 2, dateCreated: Date("2024-07-01"), drugName: "Vanilla Beans", quantity: 50, refills: 1},
-//{ _id: 2, doctorId: 2, patientId: 5, dateCreated: new Date("2023-11-15"), drugName: "Chicken Soup", quantity: 3, refills: 3,
-//	fills: [ { pharmacyID: 1, dateFilled: new Date("2023-11-18"), cost: "10.00" },
-//			 { pharmacyID: 1, dateFilled: new Date("2023-12-01"), cost: "10.00" }
+//{ _id: 1, doctorId: 1, patientId: 2, dateCreated: "2024-07-01", drugName: "Vanilla Beans", quantity: 50, refills: 1},
+//{ _id: 2, doctorId: 2, patientId: 5, dateCreated: "2023-11-15", drugName: "Chicken Soup", quantity: 3, refills: 3,
+//	fills: [ { pharmacyID: 1, dateFilled: "2023-11-18", cost: "10.00" },
+//			 { pharmacyID: 1, dateFilled: "2023-12-01", cost: "10.00" }
 //			] },
-//{ _id: 3, doctorId: 4, patientId: 4, dateCreated: new Date("2024-10-08"), drugName: "Ranch Dressing", quantity: 30, refills: 1,
-//	fills: [ { pharmacyID: 2, dateFilled: new Date("2024-10-12"), cost: "12.99"} 
+//{ _id: 3, doctorId: 4, patientId: 4, dateCreated: "2024-10-08", drugName: "Ranch Dressing", quantity: 30, refills: 1,
+//	fills: [ { pharmacyID: 2, dateFilled: "2024-10-12", cost: "12.99"}
 //			] }
 //]);
 

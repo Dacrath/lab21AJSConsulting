@@ -157,7 +157,7 @@ public class ControllerPrescriptionFill {
 
 
 		// show the updated prescription with the most recent fill information
-		model.addAttribute("message", "Prescription filled. Count: " + refillCount);
+		model.addAttribute("message", "Prescription filled.");
 		model.addAttribute("prescription", p);
 		return "prescription_show";
 	}

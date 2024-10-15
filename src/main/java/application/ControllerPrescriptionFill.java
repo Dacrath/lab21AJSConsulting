@@ -80,6 +80,12 @@ public class ControllerPrescriptionFill {
 		// find the prescription
 		Prescription prescription = prescriptionRepository.findById(p.getRxid());
 		if (prescription != null) {
+			if (prescription.getPatientId() != patient.getId()) {
+				model.addAttribute("message", "That is not a valid prescription for " +
+						p.getPatientFirstName() + " " + p.getPatientLastName() +". Please confirm and resubmit.");
+				model.addAttribute("prescription", p);
+				return "prescription_fill";
+			}
 			p.setRxid(prescription.getRxid());
 			// dev note: the field 'refills' is displayed with the text 'refills remaining'. This is inconsistent
 			// with the text display and corrections were made in 'prescription_show.html' to adjust it.
@@ -92,6 +98,7 @@ public class ControllerPrescriptionFill {
 			// We will assume that the size of the array is sufficient to count prescription fill occurrences
 			refillCount = fillRequests.size();
 			p.setRefillsRemaining(prescription.getRefills() - refillCount);
+		// Verify that the Patient in the Prescription is the same as the Patient last name supplied in the form
 		} else {
 			model.addAttribute("message", "That is not a valid prescription for " +
 					p.getPatientFirstName() + " " + p.getPatientLastName() +". Please confirm and resubmit.");

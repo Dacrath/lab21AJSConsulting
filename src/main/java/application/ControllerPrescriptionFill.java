@@ -42,9 +42,9 @@ public class ControllerPrescriptionFill {
 	@PostMapping("/prescription/fill")
 	public String processFillForm(PrescriptionView p, Model model) {
 		// Set a variable to be updated by any refills
-		int refillCount = 0;
-		ArrayList<Pharmacy.DrugCost> drugCosts = new ArrayList<>();
-		ArrayList<Prescription.FillRequest> fillRequests = new ArrayList<>();
+		int refillCount;
+		ArrayList<Pharmacy.DrugCost> drugCosts;
+		ArrayList<Prescription.FillRequest> fillRequests;
 		Prescription.FillRequest newFillRequest = new Prescription.FillRequest();
 
 		// validate pharmacy name and address, get pharmacy id and phone

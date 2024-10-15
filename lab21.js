@@ -26,10 +26,11 @@
 db.pharmacy.drop();
 db.pharmacy.insertMany([
 { _id: 1, name: "DrugMart", address: "83 Wharehouse Lane", phone: "9192945631",
-	drugCosts: [ { drugName: "Vanilla Beans", cost: 8.23 }, { drugName: "Chicken Soup", cost: 13.33} ] },
+	drugCosts: [ { drugName: "Vanilla Beans", cost: 8.23 }, { drugName: "Chicken Soup", cost: 13.33}, { drugName: "Ranch Dressing", cost: 11.99} ] },
 { _id: 2, name: "Rx4Less", address: "www.Rx4Less.com", phone: "4593921193",
-	drugCosts: [ { drugName: "Chicken Soup", cost: 12.50 }, { drugName: "Ranch Dressing", cost: 8.99} ] },
-{ _id: 3, name: "Fast Scrips", address: "59384 Whopping Way", phone: "5493921944"}
+	drugCosts: [ { drugName: "Vanilla Beans", cost: 9.00 }, { drugName: "Chicken Soup", cost: 12.50 }, { drugName: "Ranch Dressing", cost: 8.99} ] },
+{ _id: 3, name: "Fast Scrips", address: "59384 Whopping Way", phone: "5493921944",
+	drugCosts: [ { drugName: "Vanilla Beans", cost: 9.44 }, { drugName: "Chicken Soup", cost: 11.88 }, { drugName: "Ranch Dressing", cost: 6.88} ] }
 ]);
 
 // 3. Patient Data
